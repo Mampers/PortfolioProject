@@ -1,0 +1,1027 @@
++*In[1]:*+
+[source, ipython3]
+----
+import pandas as pd
+----
+
+
++*In[33]:*+
+[source, ipython3]
+----
+data = pd.read_csv('C:/Users/PaulMampilly/Documents/Data/EcoP.txt')
+----
+
+
++*In[6]:*+
+[source, ipython3]
+----
+data
+----
+
+
++*Out[6]:*+
+----
+[cols=",,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price
+|0 |16629 Pace Camp Apt. 448\nAlexisborough, NE 77... |46 in |PM
+|Opera/9.56.(X11; Linux x86_64; sl-SI) Presto/2... |Martinez-Herman
+|6011929061123406 |02/20 |900 |JCB 16 digit |pdunlap@yahoo.com
+|Scientist, product/process development |149.146.147.205 |el |98.14
+
+|1 |9374 Jasmine Spurs Suite 508\nSouth John, TN 8... |28 rn |PM
+|Opera/8.93.(Windows 98; Win 9x 4.90; en-US) Pr... |Fletcher, Richards
+and Whitaker |3337758169645356 |11/18 |561 |Mastercard
+|anthony41@reed.com |Drilling engineer |15.160.41.51 |fr |70.73
+
+|2 |Unit 0065 Box 5052\nDPO AP 27450 |94 vE |PM |Mozilla/5.0
+(compatible; MSIE 9.0; Windows NT ... |Simpson, Williams and Pham
+|675957666125 |08/19 |699 |JCB 16 digit |amymiller@morales-harrison.com
+|Customer service manager |132.207.160.22 |de |0.95
+
+|3 |7780 Julia Fords\nNew Stacy, WA 45798 |36 vm |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_0 ... |Williams, Marshall and Buchanan
+|6011578504430710 |02/24 |384 |Discover |brent16@olson-robinson.info
+|Drilling engineer |30.250.74.19 |es |78.04
+
+|4 |23012 Munoz Drive Suite 337\nNew Cynthia, TX 5... |20 IE |AM
+|Opera/9.58.(X11; Linux x86_64; it-IT) Presto/2... |Brown, Watson and
+Andrews |6011456623207998 |10/25 |678 |Diners Club / Carte Blanche
+|christopherwright@gmail.com |Fine artist |24.140.33.94 |es |77.82
+
+|... |... |... |... |... |... |... |... |... |... |... |... |... |...
+|...
+
+|9995 |966 Castaneda Locks\nWest Juliafurt, CO 96415 |92 XI |PM
+|Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5352 ... |Randall-Sloan
+|342945015358701 |03/22 |838 |JCB 15 digit |iscott@wade-garner.com
+|Printmaker |29.73.197.114 |it |82.21
+
+|9996 |832 Curtis Dam Suite 785\nNorth Edwardburgh, T... |41 JY |AM
+|Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ... |Hale, Collins and
+Wilson |210033169205009 |07/25 |207 |JCB 16 digit |mary85@hotmail.com
+|Energy engineer |121.133.168.51 |pt |25.63
+
+|9997 |Unit 4434 Box 6343\nDPO AE 28026-0283 |74 Zh |AM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Anderson Ltd |6011539787356311
+|05/21 |1 |VISA 16 digit |tyler16@gmail.com |Veterinary surgeon
+|156.210.0.254 |el |83.98
+
+|9998 |0096 English Rest\nRoystad, IA 12457 |74 cL |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_8;... |Cook Inc |180003348082930 |11/17
+|987 |American Express |elizabethmoore@reid.net |Local government
+officer |55.78.26.143 |es |38.84
+
+|9999 |40674 Barrett Stravenue\nGrimesville, WI 79682 |64 Hr |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.5.20) Gec... |Greene Inc
+|4139972901927273 |02/19 |302 |JCB 15 digit |rachelford@vaughn.com
+|Embryologist, clinical |176.119.198.199 |el |67.59
+|===
+
+10000 rows × 14 columns
+----
+
+
++*In[7]:*+
+[source, ipython3]
+----
+# 1, Display Top 10 Rows of the Dataset
+----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+data.head(10)
+----
+
+
++*Out[8]:*+
+----
+[cols=",,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price
+|0 |16629 Pace Camp Apt. 448\nAlexisborough, NE 77... |46 in |PM
+|Opera/9.56.(X11; Linux x86_64; sl-SI) Presto/2... |Martinez-Herman
+|6011929061123406 |02/20 |900 |JCB 16 digit |pdunlap@yahoo.com
+|Scientist, product/process development |149.146.147.205 |el |98.14
+
+|1 |9374 Jasmine Spurs Suite 508\nSouth John, TN 8... |28 rn |PM
+|Opera/8.93.(Windows 98; Win 9x 4.90; en-US) Pr... |Fletcher, Richards
+and Whitaker |3337758169645356 |11/18 |561 |Mastercard
+|anthony41@reed.com |Drilling engineer |15.160.41.51 |fr |70.73
+
+|2 |Unit 0065 Box 5052\nDPO AP 27450 |94 vE |PM |Mozilla/5.0
+(compatible; MSIE 9.0; Windows NT ... |Simpson, Williams and Pham
+|675957666125 |08/19 |699 |JCB 16 digit |amymiller@morales-harrison.com
+|Customer service manager |132.207.160.22 |de |0.95
+
+|3 |7780 Julia Fords\nNew Stacy, WA 45798 |36 vm |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_0 ... |Williams, Marshall and Buchanan
+|6011578504430710 |02/24 |384 |Discover |brent16@olson-robinson.info
+|Drilling engineer |30.250.74.19 |es |78.04
+
+|4 |23012 Munoz Drive Suite 337\nNew Cynthia, TX 5... |20 IE |AM
+|Opera/9.58.(X11; Linux x86_64; it-IT) Presto/2... |Brown, Watson and
+Andrews |6011456623207998 |10/25 |678 |Diners Club / Carte Blanche
+|christopherwright@gmail.com |Fine artist |24.140.33.94 |es |77.82
+
+|5 |7502 Powell Mission Apt. 768\nTravisland, VA 3... |21 XT |PM
+|Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10_8_5... |Silva-Anderson
+|30246185196287 |07/25 |7169 |Discover |ynguyen@gmail.com |Fish farm
+manager |55.96.152.147 |ru |25.15
+
+|6 |93971 Conway Causeway\nAndersonburgh, AZ 75107 |96 Xt |AM
+|Mozilla/5.0 (compatible; MSIE 7.0; Windows NT ... |Gibson and Sons
+|6011398782655569 |07/24 |714 |VISA 16 digit |olivia04@yahoo.com |Dancer
+|127.252.144.18 |de |88.56
+
+|7 |260 Rachel Plains Suite 366\nCastroberg, WV 24... |96 pG |PM
+|Mozilla/5.0 (X11; Linux i686) AppleWebKit/5350... |Marshall-Collins
+|561252141909 |06/25 |256 |VISA 13 digit |phillip48@parks.info |Event
+organiser |224.247.97.150 |pt |44.25
+
+|8 |2129 Dylan Burg\nNew Michelle, ME 28650 |45 JN |PM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Galloway and Sons
+|180041795790001 |04/24 |899 |JCB 16 digit |kdavis@rasmussen.com
+|Financial manager |146.234.201.229 |ru |59.54
+
+|9 |3795 Dawson Extensions\nLake Tinafort, ID 88739 |15 Ug |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.7.20) Gec... |Rivera, Buchanan and
+Ramirez |4396283918371 |01/17 |931 |American Express
+|qcoleman@hunt-huerta.com |Forensic scientist |236.198.199.8 |zh |95.63
+|===
+----
+
+
++*In[10]:*+
+[source, ipython3]
+----
+#2 Display Last 10 rows in Dataset
+
+
+data.tail(10)
+----
+
+
++*Out[10]:*+
+----
+[cols=",,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price
+|9990 |75731 Molly Springs\nWest Danielle, VT 96934-5102 |93 ty |PM
+|Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4;... |Pace, Vazquez and
+Richards |869968197049750 |04/24 |877 |JCB 15 digit
+|andersonmichael@sherman.biz |Early years teacher |54.170.3.185 |ru
+|18.35
+
+|9991 |PSC 8165, Box 8498\nAPO AP 60327-0346 |50 dA |AM |Mozilla/5.0
+(compatible; MSIE 8.0; Windows NT ... |Snyder Inc |4221582137197481
+|02/24 |969 |Voyager |kking@wise-liu.com |IT sales professional
+|254.25.31.156 |el |25.93
+
+|9992 |885 Allen Mountains Apt. 230\nWallhaven, LA 16995 |40 vH |PM
+|Mozilla/5.0 (Macintosh; PPC Mac OS X 10_6_5) A... |Wells Ltd
+|4664825258997302 |10/20 |431 |Discover |bberry@wright.net |Set designer
+|174.173.51.32 |de |67.96
+
+|9993 |7555 Larson Locks Suite 229\nEllisburgh, MA 34... |72 jg |PM
+|Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_8... |Colon and Sons
+|30025560104631 |10/25 |629 |Maestro |chelseawilliams@lopez.biz
+|Designer, exhibition/display |177.46.82.128 |el |65.61
+
+|9994 |6276 Rojas Hollow\nLake Louis, WY 56410-7837 |93 Ex |PM
+|Opera/9.68.(X11; Linux x86_64; sl-SI) Presto/2... |Ritter-Smith
+|3112186784121077 |01/25 |1823 |Maestro |iroberts@gmail.com |Education
+officer, museum |242.44.112.18 |zh |31.85
+
+|9995 |966 Castaneda Locks\nWest Juliafurt, CO 96415 |92 XI |PM
+|Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5352 ... |Randall-Sloan
+|342945015358701 |03/22 |838 |JCB 15 digit |iscott@wade-garner.com
+|Printmaker |29.73.197.114 |it |82.21
+
+|9996 |832 Curtis Dam Suite 785\nNorth Edwardburgh, T... |41 JY |AM
+|Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ... |Hale, Collins and
+Wilson |210033169205009 |07/25 |207 |JCB 16 digit |mary85@hotmail.com
+|Energy engineer |121.133.168.51 |pt |25.63
+
+|9997 |Unit 4434 Box 6343\nDPO AE 28026-0283 |74 Zh |AM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Anderson Ltd |6011539787356311
+|05/21 |1 |VISA 16 digit |tyler16@gmail.com |Veterinary surgeon
+|156.210.0.254 |el |83.98
+
+|9998 |0096 English Rest\nRoystad, IA 12457 |74 cL |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_8;... |Cook Inc |180003348082930 |11/17
+|987 |American Express |elizabethmoore@reid.net |Local government
+officer |55.78.26.143 |es |38.84
+
+|9999 |40674 Barrett Stravenue\nGrimesville, WI 79682 |64 Hr |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.5.20) Gec... |Greene Inc
+|4139972901927273 |02/19 |302 |JCB 15 digit |rachelford@vaughn.com
+|Embryologist, clinical |176.119.198.199 |el |67.59
+|===
+----
+
+
++*In[11]:*+
+[source, ipython3]
+----
+# 3 Check DataType pf Each Columns
+
+data.dtypes
+----
+
+
++*Out[11]:*+
+----Address              object
+Lot                  object
+AM or PM             object
+Browser Info         object
+Company              object
+Credit Card           int64
+CC Exp Date          object
+CC Security Code      int64
+CC Provider          object
+Email                object
+Job                  object
+IP Address           object
+Language             object
+Purchase Price      float64
+dtype: object----
+
+
++*In[15]:*+
+[source, ipython3]
+----
+# 4 Check Null values in the Dataset
+
+data.isnull().sum()
+
+----
+
+
++*Out[15]:*+
+----Address             0
+Lot                 0
+AM or PM            0
+Browser Info        0
+Company             0
+Credit Card         0
+CC Exp Date         0
+CC Security Code    0
+CC Provider         0
+Email               0
+Job                 0
+IP Address          0
+Language            0
+Purchase Price      0
+dtype: int64----
+
+
++*In[19]:*+
+[source, ipython3]
+----
+# How Many Rows and Columns Are there in our DataSet?
+
+
+len(data.columns)
+----
+
+
++*Out[19]:*+
+----14----
+
+
++*In[21]:*+
+[source, ipython3]
+----
+len(data)
+----
+
+
++*Out[21]:*+
+----10000----
+
+
++*In[22]:*+
+[source, ipython3]
+----
+data.info()
+----
+
+
++*Out[22]:*+
+----
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10000 entries, 0 to 9999
+Data columns (total 14 columns):
+ #   Column            Non-Null Count  Dtype  
+---  ------            --------------  -----  
+ 0   Address           10000 non-null  object 
+ 1   Lot               10000 non-null  object 
+ 2   AM or PM          10000 non-null  object 
+ 3   Browser Info      10000 non-null  object 
+ 4   Company           10000 non-null  object 
+ 5   Credit Card       10000 non-null  int64  
+ 6   CC Exp Date       10000 non-null  object 
+ 7   CC Security Code  10000 non-null  int64  
+ 8   CC Provider       10000 non-null  object 
+ 9   Email             10000 non-null  object 
+ 10  Job               10000 non-null  object 
+ 11  IP Address        10000 non-null  object 
+ 12  Language          10000 non-null  object 
+ 13  Purchase Price    10000 non-null  float64
+dtypes: float64(1), int64(2), object(11)
+memory usage: 1.1+ MB
+----
+
+
++*In[24]:*+
+[source, ipython3]
+----
+#6. Highest and Lowest Purchase Prices
+
+# Highest Price
+data['Purchase Price'].max()
+----
+
+
++*Out[24]:*+
+----99.99----
+
+
++*In[25]:*+
+[source, ipython3]
+----
+#Lowest Price
+
+data['Purchase Price'].min()
+----
+
+
++*Out[25]:*+
+----0.0----
+
+
++*In[26]:*+
+[source, ipython3]
+----
+# 7. Average Purchase Price
+
+
+data['Purchase Price'].mean()
+----
+
+
++*Out[26]:*+
+----50.34730200000025----
+
+
++*In[28]:*+
+[source, ipython3]
+----
+# 8 How many people have French 'fr' as Their Language?
+
+
+data.columns
+----
+
+
++*Out[28]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[30]:*+
+[source, ipython3]
+----
+data
+----
+
+
++*Out[30]:*+
+----
+[cols=",,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price
+|0 |16629 Pace Camp Apt. 448\nAlexisborough, NE 77... |46 in |PM
+|Opera/9.56.(X11; Linux x86_64; sl-SI) Presto/2... |Martinez-Herman
+|6011929061123406 |02/20 |900 |JCB 16 digit |pdunlap@yahoo.com
+|Scientist, product/process development |149.146.147.205 |fr |98.14
+
+|1 |9374 Jasmine Spurs Suite 508\nSouth John, TN 8... |28 rn |PM
+|Opera/8.93.(Windows 98; Win 9x 4.90; en-US) Pr... |Fletcher, Richards
+and Whitaker |3337758169645356 |11/18 |561 |Mastercard
+|anthony41@reed.com |Drilling engineer |15.160.41.51 |fr |70.73
+
+|2 |Unit 0065 Box 5052\nDPO AP 27450 |94 vE |PM |Mozilla/5.0
+(compatible; MSIE 9.0; Windows NT ... |Simpson, Williams and Pham
+|675957666125 |08/19 |699 |JCB 16 digit |amymiller@morales-harrison.com
+|Customer service manager |132.207.160.22 |fr |0.95
+
+|3 |7780 Julia Fords\nNew Stacy, WA 45798 |36 vm |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_0 ... |Williams, Marshall and Buchanan
+|6011578504430710 |02/24 |384 |Discover |brent16@olson-robinson.info
+|Drilling engineer |30.250.74.19 |fr |78.04
+
+|4 |23012 Munoz Drive Suite 337\nNew Cynthia, TX 5... |20 IE |AM
+|Opera/9.58.(X11; Linux x86_64; it-IT) Presto/2... |Brown, Watson and
+Andrews |6011456623207998 |10/25 |678 |Diners Club / Carte Blanche
+|christopherwright@gmail.com |Fine artist |24.140.33.94 |fr |77.82
+
+|... |... |... |... |... |... |... |... |... |... |... |... |... |...
+|...
+
+|9995 |966 Castaneda Locks\nWest Juliafurt, CO 96415 |92 XI |PM
+|Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5352 ... |Randall-Sloan
+|342945015358701 |03/22 |838 |JCB 15 digit |iscott@wade-garner.com
+|Printmaker |29.73.197.114 |fr |82.21
+
+|9996 |832 Curtis Dam Suite 785\nNorth Edwardburgh, T... |41 JY |AM
+|Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ... |Hale, Collins and
+Wilson |210033169205009 |07/25 |207 |JCB 16 digit |mary85@hotmail.com
+|Energy engineer |121.133.168.51 |fr |25.63
+
+|9997 |Unit 4434 Box 6343\nDPO AE 28026-0283 |74 Zh |AM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Anderson Ltd |6011539787356311
+|05/21 |1 |VISA 16 digit |tyler16@gmail.com |Veterinary surgeon
+|156.210.0.254 |fr |83.98
+
+|9998 |0096 English Rest\nRoystad, IA 12457 |74 cL |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_8;... |Cook Inc |180003348082930 |11/17
+|987 |American Express |elizabethmoore@reid.net |Local government
+officer |55.78.26.143 |fr |38.84
+
+|9999 |40674 Barrett Stravenue\nGrimesville, WI 79682 |64 Hr |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.5.20) Gec... |Greene Inc
+|4139972901927273 |02/19 |302 |JCB 15 digit |rachelford@vaughn.com
+|Embryologist, clinical |176.119.198.199 |fr |67.59
+|===
+
+10000 rows × 14 columns
+----
+
+
++*In[31]:*+
+[source, ipython3]
+----
+data.columns
+----
+
+
++*Out[31]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[32]:*+
+[source, ipython3]
+----
+data['Language']=='fr'
+----
+
+
++*Out[32]:*+
+----0       True
+1       True
+2       True
+3       True
+4       True
+        ... 
+9995    True
+9996    True
+9997    True
+9998    True
+9999    True
+Name: Language, Length: 10000, dtype: bool----
+
+
++*In[34]:*+
+[source, ipython3]
+----
+data
+----
+
+
++*Out[34]:*+
+----
+[cols=",,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price
+|0 |16629 Pace Camp Apt. 448\nAlexisborough, NE 77... |46 in |PM
+|Opera/9.56.(X11; Linux x86_64; sl-SI) Presto/2... |Martinez-Herman
+|6011929061123406 |02/20 |900 |JCB 16 digit |pdunlap@yahoo.com
+|Scientist, product/process development |149.146.147.205 |el |98.14
+
+|1 |9374 Jasmine Spurs Suite 508\nSouth John, TN 8... |28 rn |PM
+|Opera/8.93.(Windows 98; Win 9x 4.90; en-US) Pr... |Fletcher, Richards
+and Whitaker |3337758169645356 |11/18 |561 |Mastercard
+|anthony41@reed.com |Drilling engineer |15.160.41.51 |fr |70.73
+
+|2 |Unit 0065 Box 5052\nDPO AP 27450 |94 vE |PM |Mozilla/5.0
+(compatible; MSIE 9.0; Windows NT ... |Simpson, Williams and Pham
+|675957666125 |08/19 |699 |JCB 16 digit |amymiller@morales-harrison.com
+|Customer service manager |132.207.160.22 |de |0.95
+
+|3 |7780 Julia Fords\nNew Stacy, WA 45798 |36 vm |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_0 ... |Williams, Marshall and Buchanan
+|6011578504430710 |02/24 |384 |Discover |brent16@olson-robinson.info
+|Drilling engineer |30.250.74.19 |es |78.04
+
+|4 |23012 Munoz Drive Suite 337\nNew Cynthia, TX 5... |20 IE |AM
+|Opera/9.58.(X11; Linux x86_64; it-IT) Presto/2... |Brown, Watson and
+Andrews |6011456623207998 |10/25 |678 |Diners Club / Carte Blanche
+|christopherwright@gmail.com |Fine artist |24.140.33.94 |es |77.82
+
+|... |... |... |... |... |... |... |... |... |... |... |... |... |...
+|...
+
+|9995 |966 Castaneda Locks\nWest Juliafurt, CO 96415 |92 XI |PM
+|Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5352 ... |Randall-Sloan
+|342945015358701 |03/22 |838 |JCB 15 digit |iscott@wade-garner.com
+|Printmaker |29.73.197.114 |it |82.21
+
+|9996 |832 Curtis Dam Suite 785\nNorth Edwardburgh, T... |41 JY |AM
+|Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ... |Hale, Collins and
+Wilson |210033169205009 |07/25 |207 |JCB 16 digit |mary85@hotmail.com
+|Energy engineer |121.133.168.51 |pt |25.63
+
+|9997 |Unit 4434 Box 6343\nDPO AE 28026-0283 |74 Zh |AM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Anderson Ltd |6011539787356311
+|05/21 |1 |VISA 16 digit |tyler16@gmail.com |Veterinary surgeon
+|156.210.0.254 |el |83.98
+
+|9998 |0096 English Rest\nRoystad, IA 12457 |74 cL |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_8;... |Cook Inc |180003348082930 |11/17
+|987 |American Express |elizabethmoore@reid.net |Local government
+officer |55.78.26.143 |es |38.84
+
+|9999 |40674 Barrett Stravenue\nGrimesville, WI 79682 |64 Hr |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.5.20) Gec... |Greene Inc
+|4139972901927273 |02/19 |302 |JCB 15 digit |rachelford@vaughn.com
+|Embryologist, clinical |176.119.198.199 |el |67.59
+|===
+
+10000 rows × 14 columns
+----
+
+
++*In[35]:*+
+[source, ipython3]
+----
+data['Language']=='fr'
+----
+
+
++*Out[35]:*+
+----0       False
+1        True
+2       False
+3       False
+4       False
+        ...  
+9995    False
+9996    False
+9997    False
+9998    False
+9999    False
+Name: Language, Length: 10000, dtype: bool----
+
+
++*In[38]:*+
+[source, ipython3]
+----
+len(data[data['Language']=='fr'])
+----
+
+
++*Out[38]:*+
+----1097----
+
+
++*In[39]:*+
+[source, ipython3]
+----
+data[data['Language']=='fr'].count()
+----
+
+
++*Out[39]:*+
+----Address             1097
+Lot                 1097
+AM or PM            1097
+Browser Info        1097
+Company             1097
+Credit Card         1097
+CC Exp Date         1097
+CC Security Code    1097
+CC Provider         1097
+Email               1097
+Job                 1097
+IP Address          1097
+Language            1097
+Purchase Price      1097
+dtype: int64----
+
+
++*In[44]:*+
+[source, ipython3]
+----
+#9. Job Title Contains Engineer
+
+len(data[data['Job'].str.contains('engineer',case=False)])
+----
+
+
++*Out[44]:*+
+----984----
+
+
++*In[45]:*+
+[source, ipython3]
+----
+# 11 Find Email of the Person with the following IP Address: 132.207.160.22?
+
+data.columns
+----
+
+
++*Out[45]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[48]:*+
+[source, ipython3]
+----
+data[data['IP Address']=='132.207.160.22']['Email']
+----
+
+
++*Out[48]:*+
+----2    amymiller@morales-harrison.com
+Name: Email, dtype: object----
+
+
++*In[49]:*+
+[source, ipython3]
+----
+#11 Gow many people have MasterCard as Their Credit Card Provider and have made a purchase over 50?
+
+
+
+data.columns
+----
+
+
++*Out[49]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[51]:*+
+[source, ipython3]
+----
+data['CC Provider']=='Mastercard'
+----
+
+
++*Out[51]:*+
+----0       False
+1        True
+2       False
+3       False
+4       False
+        ...  
+9995    False
+9996    False
+9997    False
+9998    False
+9999    False
+Name: CC Provider, Length: 10000, dtype: bool----
+
+
++*In[57]:*+
+[source, ipython3]
+----
+len(data[(data['CC Provider']=='Mastercard') & (data['Purchase Price']>50)]) 
+----
+
+
++*Out[57]:*+
+----405----
+
+
++*In[58]:*+
+[source, ipython3]
+----
+# 12 Find Email of the Person with the following credit card number 4664825258997302
+
+data.columns
+
+----
+
+
++*Out[58]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[62]:*+
+[source, ipython3]
+----
+data[data['Credit Card']==4664825258997302]['Email']
+----
+
+
++*Out[62]:*+
+----9992    bberry@wright.net
+Name: Email, dtype: object----
+
+
++*In[63]:*+
+[source, ipython3]
+----
+#13 How many people purchase in the AM and how many people purchase in the PM?
+
+data.columns
+----
+
+
++*Out[63]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[64]:*+
+[source, ipython3]
+----
+data['AM or PM'].value_counts()
+----
+
+
++*Out[64]:*+
+----PM    5068
+AM    4932
+Name: AM or PM, dtype: int64----
+
+
++*In[65]:*+
+[source, ipython3]
+----
+#14 How many people have a credit card that expires in 2020
+
+
+
+data.columns
+----
+
+
++*Out[65]:*+
+----Index(['Address', 'Lot', 'AM or PM', 'Browser Info', 'Company', 'Credit Card',
+       'CC Exp Date', 'CC Security Code', 'CC Provider', 'Email', 'Job',
+       'IP Address', 'Language', 'Purchase Price'],
+      dtype='object')----
+
+
++*In[66]:*+
+[source, ipython3]
+----
+data['CC Exp Date']
+----
+
+
++*Out[66]:*+
+----0       02/20
+1       11/18
+2       08/19
+3       02/24
+4       10/25
+        ...  
+9995    03/22
+9996    07/25
+9997    05/21
+9998    11/17
+9999    02/19
+Name: CC Exp Date, Length: 10000, dtype: object----
+
+
++*In[68]:*+
+[source, ipython3]
+----
+def fun():
+    count=0
+    for data in data('CC Exp Date'):
+        if date.split('/')[1]=='20':
+            count=count+1
+        print(count)
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+fun()
+----
+
+
++*In[72]:*+
+[source, ipython3]
+----
+len(data[data['CC Exp Date'].apply(lambda x:x[3:]=='20')])
+----
+
+
++*Out[72]:*+
+----988----
+
+
++*In[73]:*+
+[source, ipython3]
+----
+# 15 Top 5 Most Popular Email providers (eg Gmail.com, Yahoo.com)
+----
+
+
++*In[76]:*+
+[source, ipython3]
+----
+list1=[]
+for email in data['Email']:
+    list1.append(email.split('@')[1])
+----
+
+
++*In[74]:*+
+[source, ipython3]
+----
+data['Email']
+----
+
+
++*Out[74]:*+
+----0                    pdunlap@yahoo.com
+1                   anthony41@reed.com
+2       amymiller@morales-harrison.com
+3          brent16@olson-robinson.info
+4          christopherwright@gmail.com
+                     ...              
+9995            iscott@wade-garner.com
+9996                mary85@hotmail.com
+9997                 tyler16@gmail.com
+9998           elizabethmoore@reid.net
+9999             rachelford@vaughn.com
+Name: Email, Length: 10000, dtype: object----
+
+
++*In[77]:*+
+[source, ipython3]
+----
+data['temp']=list1
+----
+
+
++*In[78]:*+
+[source, ipython3]
+----
+data
+----
+
+
++*Out[78]:*+
+----
+[cols=",,,,,,,,,,,,,,,",options="header",]
+|===
+| |Address |Lot |AM or PM |Browser Info |Company |Credit Card |CC Exp
+Date |CC Security Code |CC Provider |Email |Job |IP Address |Language
+|Purchase Price |temp
+|0 |16629 Pace Camp Apt. 448\nAlexisborough, NE 77... |46 in |PM
+|Opera/9.56.(X11; Linux x86_64; sl-SI) Presto/2... |Martinez-Herman
+|6011929061123406 |02/20 |900 |JCB 16 digit |pdunlap@yahoo.com
+|Scientist, product/process development |149.146.147.205 |el |98.14
+|yahoo.com
+
+|1 |9374 Jasmine Spurs Suite 508\nSouth John, TN 8... |28 rn |PM
+|Opera/8.93.(Windows 98; Win 9x 4.90; en-US) Pr... |Fletcher, Richards
+and Whitaker |3337758169645356 |11/18 |561 |Mastercard
+|anthony41@reed.com |Drilling engineer |15.160.41.51 |fr |70.73
+|reed.com
+
+|2 |Unit 0065 Box 5052\nDPO AP 27450 |94 vE |PM |Mozilla/5.0
+(compatible; MSIE 9.0; Windows NT ... |Simpson, Williams and Pham
+|675957666125 |08/19 |699 |JCB 16 digit |amymiller@morales-harrison.com
+|Customer service manager |132.207.160.22 |de |0.95
+|morales-harrison.com
+
+|3 |7780 Julia Fords\nNew Stacy, WA 45798 |36 vm |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_0 ... |Williams, Marshall and Buchanan
+|6011578504430710 |02/24 |384 |Discover |brent16@olson-robinson.info
+|Drilling engineer |30.250.74.19 |es |78.04 |olson-robinson.info
+
+|4 |23012 Munoz Drive Suite 337\nNew Cynthia, TX 5... |20 IE |AM
+|Opera/9.58.(X11; Linux x86_64; it-IT) Presto/2... |Brown, Watson and
+Andrews |6011456623207998 |10/25 |678 |Diners Club / Carte Blanche
+|christopherwright@gmail.com |Fine artist |24.140.33.94 |es |77.82
+|gmail.com
+
+|... |... |... |... |... |... |... |... |... |... |... |... |... |...
+|... |...
+
+|9995 |966 Castaneda Locks\nWest Juliafurt, CO 96415 |92 XI |PM
+|Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5352 ... |Randall-Sloan
+|342945015358701 |03/22 |838 |JCB 15 digit |iscott@wade-garner.com
+|Printmaker |29.73.197.114 |it |82.21 |wade-garner.com
+
+|9996 |832 Curtis Dam Suite 785\nNorth Edwardburgh, T... |41 JY |AM
+|Mozilla/5.0 (compatible; MSIE 9.0; Windows NT ... |Hale, Collins and
+Wilson |210033169205009 |07/25 |207 |JCB 16 digit |mary85@hotmail.com
+|Energy engineer |121.133.168.51 |pt |25.63 |hotmail.com
+
+|9997 |Unit 4434 Box 6343\nDPO AE 28026-0283 |74 Zh |AM |Mozilla/5.0
+(Macintosh; U; Intel Mac OS X 10_7... |Anderson Ltd |6011539787356311
+|05/21 |1 |VISA 16 digit |tyler16@gmail.com |Veterinary surgeon
+|156.210.0.254 |el |83.98 |gmail.com
+
+|9998 |0096 English Rest\nRoystad, IA 12457 |74 cL |PM |Mozilla/5.0
+(Macintosh; Intel Mac OS X 10_8_8;... |Cook Inc |180003348082930 |11/17
+|987 |American Express |elizabethmoore@reid.net |Local government
+officer |55.78.26.143 |es |38.84 |reid.net
+
+|9999 |40674 Barrett Stravenue\nGrimesville, WI 79682 |64 Hr |AM
+|Mozilla/5.0 (X11; Linux i686; rv:1.9.5.20) Gec... |Greene Inc
+|4139972901927273 |02/19 |302 |JCB 15 digit |rachelford@vaughn.com
+|Embryologist, clinical |176.119.198.199 |el |67.59 |vaughn.com
+|===
+
+10000 rows × 15 columns
+----
+
+
++*In[80]:*+
+[source, ipython3]
+----
+data['temp'].value_counts().head()
+----
+
+
++*Out[80]:*+
+----hotmail.com     1638
+yahoo.com       1616
+gmail.com       1605
+smith.com         42
+williams.com      37
+Name: temp, dtype: int64----
+
+
++*In[83]:*+
+[source, ipython3]
+----
+data['Email'].apply(lambda x:x.split ('@')[1]).value_counts().head()
+----
+
+
++*Out[83]:*+
+----hotmail.com     1638
+yahoo.com       1616
+gmail.com       1605
+smith.com         42
+williams.com      37
+Name: Email, dtype: int64----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
