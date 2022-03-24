@@ -1,0 +1,904 @@
++*In[1]:*+
+[source, ipython3]
+----
+import pandas as pd
+----
+
+
++*In[14]:*+
+[source, ipython3]
+----
+import pandas as pd
+dict1 ={'Name':['Pam','Adam','Taj', 'Rose', 'Paul', 'Ann'],
+       'Marks':[85, 69, 47, 50, 78, 83],
+       'Gender':['F','M','M','F', 'M', 'F']}
+
+
+
+
+                 
+----
+
+
++*In[12]:*+
+[source, ipython3]
+----
+print(dict1)
+----
+
+
++*Out[12]:*+
+----
+{'Name': ['Pam', 'Adam', 'Taj', 'Rose', 'Paul', 'Ann'], 'Marks': [85, 69, 47, 50, 78], 'Gender': ['F', 'M', 'M', 'F', 'M', 'F']}
+----
+
+
++*In[15]:*+
+[source, ipython3]
+----
+df1=pd.DataFrame(dict1)
+df1
+----
+
+
++*Out[15]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|3 |Rose |50 |F
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|===
+----
+
+== Display Top 3 rows of the Dataset
+
+
++*In[17]:*+
+[source, ipython3]
+----
+df1.head(3)
+----
+
+
++*Out[17]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|===
+----
+
+== Check the last 3 rows of the Dataset
+
+
++*In[19]:*+
+[source, ipython3]
+----
+df1.head(-3)
+----
+
+
++*Out[19]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|===
+----
+
+
++*In[21]:*+
+[source, ipython3]
+----
+df1.tail(3)
+----
+
+
++*Out[21]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|3 |Rose |50 |F
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|===
+----
+
+== 3 Find the shape of the Dataset(No of rows and columms)
+
+
++*In[23]:*+
+[source, ipython3]
+----
+df1.shape
+----
+
+
++*Out[23]:*+
+----(6, 3)----
+
+
++*In[28]:*+
+[source, ipython3]
+----
+print('Number of rows',df1.shape[0])
+print('Number of Columms',df1.shape[1])
+----
+
+
++*Out[28]:*+
+----
+Number of rows 6
+Number of Columms 3
+----
+
+== 4 Get information about our Dataset (Total No of rows, Total Bo of Columns, Datasets of Each Column and Memory Requirement)
+
+
++*In[30]:*+
+[source, ipython3]
+----
+df1.info()
+----
+
+
++*Out[30]:*+
+----
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 6 entries, 0 to 5
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   Name    6 non-null      object
+ 1   Marks   6 non-null      int64 
+ 2   Gender  6 non-null      object
+dtypes: int64(1), object(2)
+memory usage: 272.0+ bytes
+----
+
+== 5 Check Null Values in Dataset performing Sum(axis=0)
+
+df1.isnull().sum(axis=0)
+
+== 6 Check Null Values in Dataset performing Sum (axis 1)
+
+df1.isnull().sum(axis=1)
+
+== 7 Get Overall Statistics about the Dataframe
+
+
++*In[36]:*+
+[source, ipython3]
+----
+df1.describe()
+----
+
+
++*Out[36]:*+
+----
+[cols=",",options="header",]
+|===
+| |Marks
+|count |6.000000
+|mean |68.666667
+|std |16.597189
+|min |47.000000
+|25% |54.750000
+|50% |73.500000
+|75% |81.750000
+|max |85.000000
+|===
+----
+
+
++*In[37]:*+
+[source, ipython3]
+----
+df1.describe(include='all')
+----
+
+
++*Out[37]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|count |6 |6.000000 |6
+|unique |6 |NaN |2
+|top |Taj |NaN |M
+|freq |1 |NaN |3
+|mean |NaN |68.666667 |NaN
+|std |NaN |16.597189 |NaN
+|min |NaN |47.000000 |NaN
+|25% |NaN |54.750000 |NaN
+|50% |NaN |73.500000 |NaN
+|75% |NaN |81.750000 |NaN
+|max |NaN |85.000000 |NaN
+|===
+----
+
+== 8 Find Unique Values from The Gender Column
+
+df1[`Gender'].unique()
+
+== 9 Find the Number of Unique Values from the Gender Column
+
+df1[`Gender'].nunique()
+
+
++*In[42]:*+
+[source, ipython3]
+----
+# 9 Display Count of Uniquw Values in Gender Columns
+
+df1['Gender'].value_counts()
+----
+
+
++*Out[42]:*+
+----M    3
+F    3
+Name: Gender, dtype: int64----
+
+== 10 Find Total Number of students having Marks Between 80 - 90 (Inclusive) using between method
+
+
++*In[46]:*+
+[source, ipython3]
+----
+df1['Marks']
+----
+
+
++*Out[46]:*+
+----0    85
+1    69
+2    47
+3    50
+4    78
+5    83
+Name: Marks, dtype: int64----
+
+
++*In[47]:*+
+[source, ipython3]
+----
+df1['Marks']>80
+----
+
+
++*Out[47]:*+
+----0     True
+1    False
+2    False
+3    False
+4    False
+5     True
+Name: Marks, dtype: bool----
+
+
++*In[48]:*+
+[source, ipython3]
+----
+df1[df1['Marks']>80]
+----
+
+
++*Out[48]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[53]:*+
+[source, ipython3]
+----
+df1[(df1['Marks']>80) & (df1['Marks']<90)]
+----
+
+
++*Out[53]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[54]:*+
+[source, ipython3]
+----
+len(df1[df1['Marks']>80])
+----
+
+
++*Out[54]:*+
+----2----
+
+
++*In[55]:*+
+[source, ipython3]
+----
+#This is usng the between method
+
+df1['Marks'].between(80,90)
+----
+
+
++*Out[55]:*+
+----0     True
+1    False
+2    False
+3    False
+4    False
+5     True
+Name: Marks, dtype: bool----
+
+
++*In[56]:*+
+[source, ipython3]
+----
+sum(df1['Marks'].between(80,90))
+----
+
+
++*Out[56]:*+
+----2----
+
+== 11 Find Average Marks
+
+df1
+
+
++*In[59]:*+
+[source, ipython3]
+----
+df1['Marks'].mean()
+----
+
+
++*Out[59]:*+
+----68.66666666666667----
+
+
++*In[60]:*+
+[source, ipython3]
+----
+#Finding the min of Marks
+
+
+df1['Marks'].min()
+----
+
+
++*Out[60]:*+
+----47----
+
+
++*In[61]:*+
+[source, ipython3]
+----
+#Finding the max of Marks
+
+df1['Marks'].max()
+
+----
+
+
++*Out[61]:*+
+----85----
+
+
++*In[62]:*+
+[source, ipython3]
+----
+#12 Apply Method
+----
+
+
++*In[67]:*+
+[source, ipython3]
+----
+def marks(x):
+    return x//2
+----
+
+
++*In[68]:*+
+[source, ipython3]
+----
+df1['Half_marks']=df1['Marks'].apply(marks)
+----
+
+
++*In[69]:*+
+[source, ipython3]
+----
+df1
+----
+
+
++*Out[69]:*+
+----
+[cols=",,,,",options="header",]
+|===
+| |Name |Marks |Gender |Half_marks
+|0 |Pam |85 |F |42
+|1 |Adam |69 |M |34
+|2 |Taj |47 |M |23
+|3 |Rose |50 |F |25
+|4 |Paul |78 |M |39
+|5 |Ann |83 |F |41
+|===
+----
+
+
++*In[70]:*+
+[source, ipython3]
+----
+# Lamda
+
+df1['Marks'].apply(lambda x:x/2)
+----
+
+
++*Out[70]:*+
+----0    42.5
+1    34.5
+2    23.5
+3    25.0
+4    39.0
+5    41.5
+Name: Marks, dtype: float64----
+
+
++*In[71]:*+
+[source, ipython3]
+----
+# length of string on Names column
+
+df1['Name'].apply(len)
+----
+
+
++*Out[71]:*+
+----0    3
+1    4
+2    3
+3    4
+4    4
+5    3
+Name: Name, dtype: int64----
+
+
++*In[72]:*+
+[source, ipython3]
+----
+#13 Map Functions
+
+
+df1
+----
+
+
++*Out[72]:*+
+----
+[cols=",,,,",options="header",]
+|===
+| |Name |Marks |Gender |Half_marks
+|0 |Pam |85 |F |42
+|1 |Adam |69 |M |34
+|2 |Taj |47 |M |23
+|3 |Rose |50 |F |25
+|4 |Paul |78 |M |39
+|5 |Ann |83 |F |41
+|===
+----
+
+
++*In[73]:*+
+[source, ipython3]
+----
+df1['Gender'].map({'M':1,'F':0})
+----
+
+
++*Out[73]:*+
+----0    0
+1    1
+2    1
+3    0
+4    1
+5    0
+Name: Gender, dtype: int64----
+
+
++*In[74]:*+
+[source, ipython3]
+----
+df1['Male_Female']=df1['Gender'].map({'M':1,'F':0})
+----
+
+
++*In[75]:*+
+[source, ipython3]
+----
+df1
+----
+
+
++*Out[75]:*+
+----
+[cols=",,,,,",options="header",]
+|===
+| |Name |Marks |Gender |Half_marks |Male_Female
+|0 |Pam |85 |F |42 |0
+|1 |Adam |69 |M |34 |1
+|2 |Taj |47 |M |23 |1
+|3 |Rose |50 |F |25 |0
+|4 |Paul |78 |M |39 |1
+|5 |Ann |83 |F |41 |0
+|===
+----
+
+
++*In[76]:*+
+[source, ipython3]
+----
+#14 Drop the Columns
+
+df1
+----
+
+
++*Out[76]:*+
+----
+[cols=",,,,,",options="header",]
+|===
+| |Name |Marks |Gender |Half_marks |Male_Female
+|0 |Pam |85 |F |42 |0
+|1 |Adam |69 |M |34 |1
+|2 |Taj |47 |M |23 |1
+|3 |Rose |50 |F |25 |0
+|4 |Paul |78 |M |39 |1
+|5 |Ann |83 |F |41 |0
+|===
+----
+
+
++*In[79]:*+
+[source, ipython3]
+----
+df1.drop('Male_Female', axis=1)
+----
+
+
++*Out[79]:*+
+----
+[cols=",,,,",options="header",]
+|===
+| |Name |Marks |Gender |Half_marks
+|0 |Pam |85 |F |42
+|1 |Adam |69 |M |34
+|2 |Taj |47 |M |23
+|3 |Rose |50 |F |25
+|4 |Paul |78 |M |39
+|5 |Ann |83 |F |41
+|===
+----
+
+
++*In[82]:*+
+[source, ipython3]
+----
+df1.drop(['Male_Female','Half_marks'],axis=1, inplace=True)
+----
+
+
++*In[83]:*+
+[source, ipython3]
+----
+df1
+----
+
+
++*Out[83]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|3 |Rose |50 |F
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[84]:*+
+[source, ipython3]
+----
+#15 Print Name of The Columns
+
+
+df1.columns
+----
+
+
++*Out[84]:*+
+----Index(['Name', 'Marks', 'Gender'], dtype='object')----
+
+
++*In[85]:*+
+[source, ipython3]
+----
+df1.index
+----
+
+
++*Out[85]:*+
+----RangeIndex(start=0, stop=6, step=1)----
+
+
++*In[86]:*+
+[source, ipython3]
+----
+# 16 Sort the DataFrame as per the Marks Column
+
+df1
+----
+
+
++*Out[86]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|3 |Rose |50 |F
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[87]:*+
+[source, ipython3]
+----
+df1.sort_values(by='Marks')
+----
+
+
++*Out[87]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|2 |Taj |47 |M
+|3 |Rose |50 |F
+|1 |Adam |69 |M
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|0 |Pam |85 |F
+|===
+----
+
+
++*In[88]:*+
+[source, ipython3]
+----
+df1.sort_values(by='Marks', ascending=False)
+----
+
+
++*Out[88]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|5 |Ann |83 |F
+|4 |Paul |78 |M
+|1 |Adam |69 |M
+|3 |Rose |50 |F
+|2 |Taj |47 |M
+|===
+----
+
+
++*In[89]:*+
+[source, ipython3]
+----
+df1.sort_values(by=['Marks','Gender'],ascending=False)
+----
+
+
++*Out[89]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|5 |Ann |83 |F
+|4 |Paul |78 |M
+|1 |Adam |69 |M
+|3 |Rose |50 |F
+|2 |Taj |47 |M
+|===
+----
+
+
++*In[90]:*+
+[source, ipython3]
+----
+#17 Display Name and Marks of the Female Students
+----
+
+
++*In[91]:*+
+[source, ipython3]
+----
+df1
+----
+
+
++*Out[91]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|1 |Adam |69 |M
+|2 |Taj |47 |M
+|3 |Rose |50 |F
+|4 |Paul |78 |M
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[92]:*+
+[source, ipython3]
+----
+df1['Gender']
+----
+
+
++*Out[92]:*+
+----0    F
+1    M
+2    M
+3    F
+4    M
+5    F
+Name: Gender, dtype: object----
+
+
++*In[94]:*+
+[source, ipython3]
+----
+df1[df1['Gender']=='F']
+----
+
+
++*Out[94]:*+
+----
+[cols=",,,",options="header",]
+|===
+| |Name |Marks |Gender
+|0 |Pam |85 |F
+|3 |Rose |50 |F
+|5 |Ann |83 |F
+|===
+----
+
+
++*In[97]:*+
+[source, ipython3]
+----
+df1[df1['Gender']=='F'][['Name','Marks']]
+----
+
+
++*Out[97]:*+
+----
+[cols=",,",options="header",]
+|===
+| |Name |Marks
+|0 |Pam |85
+|3 |Rose |50
+|5 |Ann |83
+|===
+----
+
+
++*In[100]:*+
+[source, ipython3]
+----
+df1[df1['Gender'].isin(['F'])][['Name','Marks']]
+----
+
+
++*Out[100]:*+
+----
+[cols=",,",options="header",]
+|===
+| |Name |Marks
+|0 |Pam |85
+|3 |Rose |50
+|5 |Ann |83
+|===
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
