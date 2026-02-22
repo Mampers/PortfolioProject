@@ -164,3 +164,4 @@ select location, MAX(cast(total_deaths as int)) AS TotalDeathCount
 	--where location like '%kingdom%'
 	Group by location
 	order by TotalDeathCount DESC
+
